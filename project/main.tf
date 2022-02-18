@@ -83,10 +83,15 @@ output "azuredevops_git_repository_repo" {
   depends_on = [azuredevops_git_repository.repo]
 }
 
+
 resource "azuredevops_serviceendpoint_azurerm" "endpointazure" {
-  project_id                = azuredevops_project.project.id
-  service_endpoint_name     = "HashiCorp SE AzureRM"
-  description               = "Managed by Terraform"
+  project_id            = azuredevops_project.project.id
+  service_endpoint_name = "HashiCorp SE AzureRM"
+  description = "Managed by Terraform" 
+  credentials {
+    serviceprincipalid  = "00000000-0000-0000-0000-000000000000" # Update: Use Instruqt Credentials 
+    serviceprincipalkey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" # Update: Use Instruqt Credentials 
+  }
   azurerm_spn_tenantid      = data.azurerm_client_config.current.tenant_id
   azurerm_subscription_id   = data.azurerm_client_config.current.subscription_id
   azurerm_subscription_name = "Microsoft Azure DEMO"
